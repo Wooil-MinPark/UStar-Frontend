@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/UStar-Frontend/static/css/main.56ef402b.css",
+    "main.js": "/UStar-Frontend/static/js/main.197b56ab.js",
+    "index.html": "/UStar-Frontend/index.html",
+    "main.56ef402b.css.map": "/UStar-Frontend/static/css/main.56ef402b.css.map",
+    "main.197b56ab.js.map": "/UStar-Frontend/static/js/main.197b56ab.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.56ef402b.css",
+    "static/js/main.197b56ab.js"
+  ]
+}
