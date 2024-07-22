@@ -47,7 +47,7 @@ const TestPage = <T,>() => {
       {loding ? (
         <div>
           <h1 className={styles.title}>테스트용 페이지</h1>
-          <NavLink to={'/'}>
+          <NavLink to={'/UStar-Frontend'}>
             <TestButton title="홈으로 가버렷" />
           </NavLink>
         </div>
