@@ -26,25 +26,26 @@ const TestPage = <T,>() => {
   //   console.log(res);
   // };
 
-  const getDataTest = async () => {
-    const json = await (await fetch('https://175.215.180.100:8000/')).json();
+  // 아래 코드가 진짜임 ㅇㅇ
+  // const getDataTest = async () => {
+  //   const json = await (await fetch('https://175.215.180.100:8000/')).json();
 
-    console.log(json.message);
-    setData(json.message);
-  };
+  //   console.log(json.message);
+  //   setData(json.message);
+  // };
+
+  // useEffect(() => {
+  //   getDataTest();
+  // }, []);
 
   useEffect(() => {
-    getDataTest();
-  }, []);
-
-  useEffect(() => {
-    setLoding({ loding: true });
+    // setLoding({ loding: true });
     console.log('바뀌는중');
-  }, [data]);
+  }, []);
 
   return (
     <div>
-      {loding ? (
+      {loding.loding ? (
         <div>
           <h1 className={styles.title}>테스트용 페이지</h1>
           <NavLink to={'/UStar-Frontend'}>
@@ -52,7 +53,10 @@ const TestPage = <T,>() => {
           </NavLink>
         </div>
       ) : (
-        <h1>로딩중</h1>
+        <div>
+          <h1>로딩중</h1>
+          <h1>서버와 연결 해야함</h1>
+        </div>
       )}
     </div>
   );
