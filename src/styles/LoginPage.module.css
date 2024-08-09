@@ -1,14 +1,37 @@
 .container {
   display: flex;
+
+  justify-content: space-between;
   height: 100vh;
+  border: 3px solid black;
+  margin: 10px;
+  border-radius: 2%;
+
+  position: relative;
+}
+
+.logo {
+  position: absolute;
+  top: 45px;
+  left: 30px;
+
+  display: flex;
+}
+
+.icon {
+  margin-right: 10px;
+}
+
+.text {
+  font-weight: bold;
 }
 
 .leftPanel {
-  flex: 1;
+  flex: 0.7;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #fff;
+  /* background-color: #fff; */
 }
 
 .rightPanel {
@@ -16,5 +39,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #1e3c72;
+  /* background-color: #fff; */
+  /* background-color: #1e3c72; */
 }

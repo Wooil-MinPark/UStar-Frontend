@@ -7,8 +7,6 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 function App() {
   return (
     <div>
-      <h1>리엑트 첫 부분 App.tsx</h1>
-      <h2>빌드 _ 커밋 _ 디플로이</h2>
       <Router>
         <Routes>
           <Route path="/" element={<LoginPage />}></Route>

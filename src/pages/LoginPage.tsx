@@ -6,6 +6,10 @@ const LoginPage = () => {
   return (
     <div>
       <div className={style.container}>
+        <div className={style.logo}>
+          <div className={style.icon}>⭐</div>
+          <div className={style.text}>U Star</div>
+        </div>
         <div className={style.leftPanel}>
           <LoginForm />
         </div>
