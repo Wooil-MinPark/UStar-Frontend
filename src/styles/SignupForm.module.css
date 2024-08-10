@@ -10,58 +10,76 @@
 
 .header {
   margin: 25px;
-}
-
-.heading {
   font-size: 45px;
   font-weight: bold;
   margin-bottom: 15px;
 }
 
-.subHeading {
-  font-style: italic;
-  font-size: 17px;
-  margin-bottom: 20px;
-}
-
 .form {
   display: flex;
   flex-direction: column;
+  align-items: center;
   margin: 25px;
 }
 
 .input {
   width: 94.1%;
   padding: 15px;
-  margin: 5px 0;
+  margin: 13px 0;
   border-radius: 4px;
   border: 1px solid #ccc;
 }
 
-.form input:nth-child(2) {
-  margin-top: 20px;
-  margin-bottom: 80px;
-}
-
-.form button {
+.register {
+  margin-top: 70px;
   padding: 15px;
-  width: 100%;
+  width: 50%;
   font-weight: bold;
   font-size: large;
 
   border: none;
   border-radius: 4px;
   cursor: pointer;
-}
 
-.loginButton {
   background-color: #3e78c5;
   color: #fff;
-  margin-bottom: 10px;
 }
 
-.signupButton {
-  margin-top: 20px;
+.BacktoLogin {
+  position: absolute;
+  top: 60px;
+  left: 450px;
+
+  cursor: pointer;
+}
+
+.usernameEail {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.usernameEail input {
+  margin-right: 15px;
+}
+
+.check {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 15px;
+  width: 13%;
+
+  height: 30%;
+
+  font-weight: bold;
+  font-size: small;
+
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+
   background-color: #d5e1f2;
   color: #236ed1;
 }
