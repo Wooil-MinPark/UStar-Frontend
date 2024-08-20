@@ -9,6 +9,10 @@ const SignUpForm: React.FC<SignupProps> = ({ onBackToLoginClick }) => {
     <div className={style.container}>
       <h2 className={style.header}>Sign up</h2>
 
+      <div onClick={onBackToLoginClick} className={style.BacktoLogin}>
+        <i className="fa-solid fa-circle-chevron-left fa-2xl"></i>
+      </div>
+
       <div className={style.form}>
         <div className={style.usernameEail}>
           <input type="text" placeholder="Username" className={style.input} />
@@ -25,8 +29,25 @@ const SignUpForm: React.FC<SignupProps> = ({ onBackToLoginClick }) => {
 
         {/* 서버랑 통신 해서 이러쿵 저러쿵 해야함 */}
         <button className={style.register}>Register</button>
-        <div onClick={onBackToLoginClick} className={style.BacktoLogin}>
-          ← Back to Login
+
+        <div className={style.dividingline}>
+          <div className={style.line}></div>
+          <div className={style.lineinfo}>Or sign up with</div>
+          <div className={style.line}></div>
+        </div>
+
+        <div className={style.snscontaner}>
+          <button className={style.sns}>
+            <i className="fa-brands fa-google fa-xl"></i>
+          </button>
+          <button className={style.sns}>
+            <i className="fa-brands fa-facebook fa-xl"></i>
+          </button>
+        </div>
+
+        <div className={style.haveAnAccount}>
+          <span>Already have an account?</span>
+          <span onClick={onBackToLoginClick}>Sign in</span>
         </div>
       </div>
     </div>

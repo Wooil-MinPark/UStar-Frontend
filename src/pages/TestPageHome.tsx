@@ -10,6 +10,9 @@ const TestPageHome = () => {
       <Link to={'/'}>
         <TestButton title="UStar 로그인 페이지로 가기" />
       </Link>
+      <Link to={'/main'}>
+        <TestButton title="UStar 메인 페이지로 가기" />
+      </Link>
     </div>
   );
 };

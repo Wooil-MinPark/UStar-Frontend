@@ -2,8 +2,8 @@
   display: flex;
 
   justify-content: space-between;
-  height: 100vh;
-  border: 3px solid black;
+  height: 90vh;
+  /* border: 3px solid black; */
   margin: 10px;
   border-radius: 1%;
 
@@ -39,7 +39,21 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  animation: appearance 0.7s ease-in-out;
 }
+
+@keyframes appearance {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 .motion {
   position: absolute;
   width: 100%;

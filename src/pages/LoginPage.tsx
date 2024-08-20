@@ -50,13 +50,6 @@ const LoginPage = () => {
               </motion.div>
             )}
           </AnimatePresence>
-
-          {/* 에니메이션 없는 초기 버전 */}
-          {/* {isSignup ? (
-            <LoginForm onSignupClick={handleBackToLoginClick} />
-          ) : (
-            <SignUpForm onBackToLoginClick={handleSignupClick} />
-          )} */}
         </div>
 
         <div className={style.rightPanel}>
