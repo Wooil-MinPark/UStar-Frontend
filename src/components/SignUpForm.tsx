@@ -7,10 +7,10 @@ interface SignupProps {
 const SignUpForm: React.FC<SignupProps> = ({ onBackToLoginClick }) => {
   return (
     <div className={style.container}>
-      <h2 className={style.header}>Sign up</h2>
+      <div className={style.header}>
+        <h2>Sign up</h2>
 
-      <div onClick={onBackToLoginClick} className={style.BacktoLogin}>
-        <i className="fa-solid fa-circle-chevron-left fa-2xl"></i>
+        <i className="fa-solid fa-circle-chevron-left" onClick={onBackToLoginClick}></i>
       </div>
 
       <div className={style.form}>
