@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/UStar-Frontend/static/css/main.a7408477.css",
-    "main.js": "/UStar-Frontend/static/js/main.6fec1c68.js",
+    "main.css": "/UStar-Frontend/static/css/main.9422a7af.css",
+    "main.js": "/UStar-Frontend/static/js/main.f8305fef.js",
     "index.html": "/UStar-Frontend/index.html",
-    "main.a7408477.css.map": "/UStar-Frontend/static/css/main.a7408477.css.map",
-    "main.6fec1c68.js.map": "/UStar-Frontend/static/js/main.6fec1c68.js.map"
+    "main.9422a7af.css.map": "/UStar-Frontend/static/css/main.9422a7af.css.map",
+    "main.f8305fef.js.map": "/UStar-Frontend/static/js/main.f8305fef.js.map"
   },
   "entrypoints": [
-    "static/css/main.a7408477.css",
-    "static/js/main.6fec1c68.js"
+    "static/css/main.9422a7af.css",
+    "static/js/main.f8305fef.js"
   ]
 }
