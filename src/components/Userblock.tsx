@@ -1,8 +1,8 @@
 import style from 'styles/Userblock.module.css';
 
 interface Props {
-  name: string;
-  nickname: string;
+  name: string | null;
+  nickname: string | null;
   profileIcon: React.ReactNode;
 }
 

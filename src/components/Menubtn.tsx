@@ -2,7 +2,7 @@ import style from 'styles/Menubtn.module.css';
 
 interface Props {
   icon: React.ReactNode;
-  text: String;
+  text: String | null;
 }
 
 const Menubtn: React.FC<Props> = ({ icon, text }) => {
