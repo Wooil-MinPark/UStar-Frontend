@@ -2,6 +2,7 @@ import TestButton from 'components/TestButton';
 import styles from '../styles/TestPage.module.css';
 import { NavLink } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 interface Loding {
   loding: boolean;
@@ -14,6 +15,7 @@ const TestPage = <T,>() => {
   const [data, setData] = useState<Data<T>>({} as Data<T>);
   const [loding, setLoding] = useState<Loding>({ loding: false });
 
+  // 이 코드는 아님 ㅇㅇ
   // const getDataTest = async () => {
   //   const res = await fetch('https://175.215.180.100:8000/', {
   //     method: 'GET',
@@ -27,16 +29,15 @@ const TestPage = <T,>() => {
   // };
 
   // 아래 코드가 진짜임 ㅇㅇ
-  // const getDataTest = async () => {
-  //   const json = await (await fetch('https://175.215.180.100:8000/')).json();
+  const getDataTest = async () => {
+    const json = await axios.get('http://112.172.161.117:8080/api/test/hello');
 
-  //   console.log(json.message);
-  //   setData(json.message);
-  // };
+    console.log(json.data);
+  };
 
-  // useEffect(() => {
-  //   getDataTest();
-  // }, []);
+  useEffect(() => {
+    getDataTest();
+  }, []);
 
   useEffect(() => {
     // setLoding({ loding: true });
