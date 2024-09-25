@@ -16,7 +16,7 @@
 
   cursor: pointer;
 
-  padding-left: 30px;
+  padding-left: 25px;
 
   transition-property: background-color;
   transition-duration: 0.5s;
@@ -34,4 +34,5 @@
 }
 
 .container div:last-child {
+  margin-left: 14px;
 }

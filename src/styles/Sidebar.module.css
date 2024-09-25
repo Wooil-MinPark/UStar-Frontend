@@ -1,27 +1,25 @@
 .container {
   width: 25%;
 
+  position: relative;
+  top: -907px;
   display: flex;
   align-items: center;
 }
 
 .sidebar {
-  width: 240px;
+  width: 220px;
 
-  height: 78vh;
+  height: 100vh;
   background-color: white;
 
-  border-top-right-radius: 1em;
-  border-bottom-right-radius: 1em;
+  /* border-top-right-radius: 1em; */
+  border-bottom-right-radius: 1.5em;
 
   transition: all 0.5s ease-in-out;
 
   overflow: hidden;
 }
-
-/* .sidebar:active {
-  width: 240px;
-} */
 
 .minimized {
   width: 90px;
@@ -29,17 +27,18 @@
 
 .collapsed {
   width: 0;
-  opacity: 0;
 }
 
 .sidebarHeader {
+  white-space: nowrap;
 }
 
 .menu {
-  height: 80%;
+  height: 85%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  white-space: nowrap;
 }
 
 /* .minimized::before {
@@ -54,26 +53,30 @@
 .arrowbtn {
   font-size: 25px;
 
+  color: white;
+
+  text-shadow: 2px 3px black;
+
   width: 30px;
   height: 30px;
 
+  background-color: inherit;
+
   border: none;
-  background-color: transparent;
+  transition: all 0.5s ease;
+}
+
+.logout a {
+  text-decoration: none;
 }
 
 .dividingline {
-  width: 90%;
+  width: 85%;
   margin: 15px;
   height: 1px;
   background-color: rgba(128, 128, 128, 0.747);
 }
 
 .dividingline_mini {
-  width: 75%;
-}
-
-.menuItem {
-}
-
-.logout {
+  width: 70%;
 }

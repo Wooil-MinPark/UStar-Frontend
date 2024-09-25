@@ -1,0 +1,52 @@
+.container {
+  flex-direction: column;
+
+  display: flex;
+
+  font-size: 100px;
+  color: white;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 100vw;
+  height: 100vh;
+}
+
+.timer {
+  text-shadow: 3px 4px 5px black;
+}
+
+.btncontainer {
+  margin: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn {
+  margin: 10px;
+  padding: 20px 50px 20px 50px;
+
+  border: 1;
+  border-radius: 2em;
+
+  background-color: white;
+}
+.btn:hover {
+  cursor: pointer;
+}
+
+.campfire {
+  position: absolute;
+
+  top: 625px;
+  left: 780px;
+  width: 10%;
+  height: 130px;
+  border: 3px solid black;
+
+  background-color: white;
+
+  opacity: 0.5;
+}
