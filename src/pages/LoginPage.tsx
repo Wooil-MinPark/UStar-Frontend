@@ -19,6 +19,10 @@ const LoginPage = () => {
     setIsSignup(false);
   };
 
+  const handleOnSuccess = () => {
+    console.log('회원가입 성공!');
+  };
+
   return (
     <div>
       <div className={style.container}>
@@ -34,7 +38,7 @@ const LoginPage = () => {
                 exit={{ x: '105%' }} // 오른쪽으로 나가기
                 transition={{ duration: 0.6 }}
               >
-                <SignUpForm onBackToLoginClick={handleBackToLoginClick} />
+                <SignUpForm onBackToLoginClick={handleBackToLoginClick} onSuccess={handleOnSuccess} />
               </motion.div>
             ) : (
               <motion.div
