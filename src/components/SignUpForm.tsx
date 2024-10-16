@@ -1,9 +1,10 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import style from 'styles/SignupForm.module.css';
 
-const API = '/api/user/signup';
-
+const API = 'http://172.30.1.29:8080/api/user/signup';
+// 172.30.1.29 우일빌라에서 쓰는 주소
+//112.172.161.117 외부에서 쓰는 주소
 interface ApiResponse {
   data: null | any;
   errorCode: null | string;
@@ -24,12 +25,13 @@ interface UserSignUpInfo {
 }
 
 const SignUpForm: React.FC<SignupProps> = ({ onBackToLoginClick, onSuccess }) => {
-  const [userId, setUserId] = useState<string>(''); //유저 아이디 (로그인할 때 쓰는 아이디)
+  // const [userId, setUserId] = useState<string>(''); //유저 아이디 (로그인할 때 쓰는 아이디)
   const [userName, setUserName] = useState<string>(''); //유저 이름 (= 닉네임)
-  const [userEmail, setUserEmail] = useState<string>(''); //유저 이메일
+  const [userEmail, setUserEmail] = useState<string>(''); //유저 이메일 (로그인을 이메일로 할 것)
   const [userPassword, setUserPassword] = useState<string>(''); //유저 암호 (로그인할 때 쓰는 암호)
   const [confirmPassword, setConfirmPassword] = useState<string>(''); // 암호 확인
-  const [isChecking, setIsChecking] = useState<boolean>(false); // 이름 , 이메일 확정 됐을때
+  const [emIsChecking, setEmIsChecking] = useState<boolean>(false); //  이메일 확정 됐을 때
+  const [nIsChecking, setNIsChecking] = useState<boolean>(false); // 이름 확정 됐을 때
 
   // 유저 정보 객체로
   // const [userSUInfo, setUserSUInfo] = useState<UserSignUpInfo>({
@@ -39,6 +41,7 @@ const SignUpForm: React.FC<SignupProps> = ({ onBackToLoginClick, onSuccess }) =>
   //   userPassword: '',
   // });
 
+  // **비밀번호 전송시 암호화**
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -50,9 +53,8 @@ const SignUpForm: React.FC<SignupProps> = ({ onBackToLoginClick, onSuccess }) =>
 
     try {
       const res = await axios.post<ApiResponse>(API, {
-        userId: userId,
-        userName: userName,
         userEmail: userEmail,
+        userName: userName,
         userPassword: userPassword,
       });
 
@@ -66,37 +68,60 @@ const SignUpForm: React.FC<SignupProps> = ({ onBackToLoginClick, onSuccess }) =>
     }
   };
 
-  const handleCheckUsername = async () => {
-    setIsChecking(true);
+  const handleCheckEmail = async () => {
+    // const res = await axios.post<ApiResponse>(API + '/userEmailDup', { userEmail: userEmail });
+    console.log('try문 전');
+    const emailRegExp = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+
+    if (!emailRegExp.test(userEmail)) {
+      console.log('이메일 형식이 틀렸어이눔아');
+      return;
+    }
 
     try {
-      const res = await axios.post<ApiResponse>(API + '/userNameDup', { userName: userId });
+      console.log('try문 시작');
+      const res = await axios.post<ApiResponse>(API + '/userEmailDup', { userEmail: userEmail });
 
-      if (!res.data.ok) {
+      if (res.data.data) {
+        // 이 에러를 consolo로 말고 다르게 표현하는걸 생각해보자
+        console.log(res);
+        console.log('중복된 이메일 입니다.');
+      }
+      setEmIsChecking(true);
+      console.log(res);
+      console.log('사용 가능한 이메일 입니다.');
+      console.log('입력한 userNameEmail : ', userEmail);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleCheckUsername = async () => {
+    if (userName === '') {
+      console.log('공백 이름은 안된다 이놈아!');
+      return;
+    }
+
+    try {
+      const res = await axios.post<ApiResponse>(API + '/userNameDup', { userName: userName });
+
+      if (res.data.data) {
         // 이 에러를 consolo로 말고 다르게 표현하는걸 생각해보자
         console.log('중복된 이름입니다.');
       }
+      setNIsChecking(true);
+      console.log('사용 가능한 이름 입니다.');
+      console.log('입력한 userName : ', userName);
     } catch (error) {
       console.log(error);
     }
-    setIsChecking(false);
   };
 
-  const handleCheckEmail = async () => {
-    setIsChecking(true);
-
-    try {
-      const res = await axios.post<ApiResponse>(API + '/userEmailDup', { userName: userName });
-
-      if (!res.data.ok) {
-        // 이 에러를 consolo로 말고 다르게 표현하는걸 생각해보자
-        console.log('중복된 이메일 입니다.');
-      }
-    } catch (error) {
-      console.log(error);
-    }
-    setIsChecking(false);
-  };
+  useEffect(() => {
+    // 변경 확인 코드
+    console.log('이메일 : ', emIsChecking);
+    console.log('닉네임 : ', nIsChecking);
+  }, [emIsChecking, nIsChecking]);
 
   return (
     <div className={style.container}>
@@ -108,38 +133,40 @@ const SignUpForm: React.FC<SignupProps> = ({ onBackToLoginClick, onSuccess }) =>
       <form className={style.form} onSubmit={handleSubmit}>
         <div className={style.usernameEail}>
           <input
-            type="text"
-            id="userName"
-            value={userName}
-            onChange={(e) => setUserName(e.target.value)}
-            placeholder="Username"
+            type="email"
+            value={userEmail}
+            onChange={(e) => setUserEmail(e.target.value)}
+            placeholder="Email"
+            required
             className={style.input}
+            disabled={emIsChecking}
           />
-          <button className={style.check} onClick={handleCheckUsername} disabled={isChecking}>
+          <button className={style.check} onClick={handleCheckEmail} disabled={emIsChecking}>
             중복확인
           </button>
         </div>
 
         <div className={style.usernameEail}>
           <input
-            type="email"
-            id="userEmail"
-            value={userEmail}
-            onChange={(e) => setUserEmail(e.target.value)}
-            placeholder="Email"
+            type="text"
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
+            placeholder="Username"
+            required
             className={style.input}
+            disabled={nIsChecking}
           />
-          <button className={style.check} onClick={handleCheckEmail} disabled={isChecking}>
+          <button className={style.check} onClick={handleCheckUsername} disabled={nIsChecking}>
             중복확인
           </button>
         </div>
-
         <input
           type="password"
           id="userPassword"
           value={userPassword}
           onChange={(e) => setUserPassword(e.target.value)}
           placeholder="Password"
+          required
           className={style.input}
         />
         <input
@@ -148,6 +175,7 @@ const SignUpForm: React.FC<SignupProps> = ({ onBackToLoginClick, onSuccess }) =>
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
           placeholder="Confirm Password"
+          required
           className={style.input}
         />
 

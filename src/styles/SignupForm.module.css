@@ -91,6 +91,10 @@
   background-color: #d5e1f2;
   color: #236ed1;
 }
+.check:disabled {
+  cursor: auto;
+  color: #92afd6;
+}
 
 .dividingline {
   display: flex;
