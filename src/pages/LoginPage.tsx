@@ -20,7 +20,8 @@ const LoginPage = () => {
   };
 
   const handleOnSuccess = () => {
-    console.log('회원가입 성공!');
+    setIsSignup(false);
+    console.log('회원가입 성공!'); // 회원가입 성공시 유저에게 보여줄 component 생각해보기
   };
 
   return (

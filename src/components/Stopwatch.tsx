@@ -13,7 +13,7 @@ interface StopwatchState {
   intervalId: number | null;
 }
 
-const Stopwatch: React.FC = () => {
+const Stopwatch = () => {
   const [state, setState] = useState<StopwatchState>({
     elapsedTime: 0,
     isRunning: false,

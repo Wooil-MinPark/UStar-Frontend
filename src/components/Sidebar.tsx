@@ -5,11 +5,18 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const USER_ICON = <i className="fa-regular fa-circle-user"></i>;
-const LOG_OUT = <i className="fa-solid fa-arrow-right-from-bracket"></i>;
+const LOG_OUT_ICON = <i className="fa-solid fa-arrow-right-from-bracket"></i>;
+const SATR_ICON = <i className="fa-regular fa-star"></i>;
+const TENT_ICON = <i className="fa-solid fa-campground"></i>;
 
-const Sidebar: React.FC = () => {
+interface Props {
+  handleIsSky?: () => void;
+  isSky: boolean;
+}
+
+const Sidebar: React.FC<Props> = ({ handleIsSky, isSky }) => {
   // case 1,2,3 식으로 구현해보기 _ bool값이 아닌 숫자 0,1,2론
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const [minimized, setMinimized] = useState(false);
 
   // 버튼 눌렀을때 사이드바 열고 접는 함수
@@ -57,14 +64,18 @@ const Sidebar: React.FC = () => {
 
         <div className={style.menu}>
           <div className={style.menuItem}>
-            <Menubtn icon={USER_ICON} text="테스트1" />
+            <Menubtn
+              icon={isSky ? TENT_ICON : SATR_ICON}
+              text={isSky ? '홈으로' : '별보러 가기'}
+              Clikfunction={handleIsSky}
+            />
             <Menubtn icon={USER_ICON} text="테스트2" />
             <Menubtn icon={USER_ICON} text="테스트3" />
           </div>
 
           <div className={style.logout}>
             <Link to={'/UStar-Frontend'}>
-              <Menubtn icon={LOG_OUT} text="Log out" />
+              <Menubtn icon={LOG_OUT_ICON} text="Log out" />
             </Link>
           </div>
         </div>

@@ -2,7 +2,9 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import style from 'styles/SignupForm.module.css';
 
-const API = 'http://172.30.1.29:8080/api/user/signup';
+// 응답 받을때 ok가 다 true (data가 null이든 있든) _ false는 예상치 못한 에러
+
+const API = 'http://localhost:8080/api/user/signup';
 // 172.30.1.29 우일빌라에서 쓰는 주소
 //112.172.161.117 외부에서 쓰는 주소
 interface ApiResponse {
@@ -52,15 +54,26 @@ const SignUpForm: React.FC<SignupProps> = ({ onBackToLoginClick, onSuccess }) =>
     }
 
     try {
-      const res = await axios.post<ApiResponse>(API, {
-        userEmail: userEmail,
-        userName: userName,
-        userPassword: userPassword,
-      });
+      const res = await axios.post<ApiResponse>(
+        API,
+        {
+          userName: userName,
+          userEmail: userEmail,
+          userPassword: userPassword,
+        },
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
 
-      if (!res.data.ok) {
+      if (res.data.data === null && res.data.errorCode === null && res.data.errorMessage === null) {
+        console.log(res.data);
         onSuccess();
       } else {
+        console.log(res.data);
         console.log('회원가입 실패');
       }
     } catch (error) {
@@ -86,6 +99,7 @@ const SignUpForm: React.FC<SignupProps> = ({ onBackToLoginClick, onSuccess }) =>
         // 이 에러를 consolo로 말고 다르게 표현하는걸 생각해보자
         console.log(res);
         console.log('중복된 이메일 입니다.');
+        return;
       }
       setEmIsChecking(true);
       console.log(res);
@@ -107,7 +121,9 @@ const SignUpForm: React.FC<SignupProps> = ({ onBackToLoginClick, onSuccess }) =>
 
       if (res.data.data) {
         // 이 에러를 consolo로 말고 다르게 표현하는걸 생각해보자
+        console.log(res);
         console.log('중복된 이름입니다.');
+        return;
       }
       setNIsChecking(true);
       console.log('사용 가능한 이름 입니다.');

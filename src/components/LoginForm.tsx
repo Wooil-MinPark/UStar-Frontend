@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import style from 'styles/LoginForm.module.css';
+import axios from 'axios';
 
 interface LoginFormProps {
   onSignupClick: () => void;
@@ -10,31 +11,37 @@ interface ApiResponse {
   data: null | any;
   errorCode: null | string;
   errorMessage: null | string;
-  token: string;
+  accessToken: string;
+  refreshToken: string;
   ok: boolean;
 }
 // 로그인 API 만들어지면 넣기
-const API = 'http://172.30.1.29:8080/api/user/signup';
+const API = 'http://localhost:8080/api/user/login';
 
 const LoginForm: React.FC<LoginFormProps> = ({ onSignupClick }) => {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  const [userEmail, setUserEmail] = useState<string>('');
+  const [userPassword, setUserPassword] = useState<string>('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
-      const res = await axios.post<ApiResponse>(API, { email, password });
+      const res = await axios.post<ApiResponse>(API, { userEmail, userPassword });
 
-      localStorage.setItem('token', res.data.token);
-
-      // navigate('/main');
+      if (res.data.errorCode === 'USER_003' || res.data.errorCode === 'USER_004') {
+        alert('이메일 또는 페스워드를 확인해 주세요');
+        return;
+      }
+      // 나중에 토큰은 어떻게 받을지 고민해보기
+      console.log(res);
+      localStorage.setItem('token', res.data.accessToken);
+      navigate('/main');
     } catch (error) {
       console.log(error);
     }
 
-    console.log(email, password);
+    console.log(userEmail, userPassword);
   };
 
   return (
@@ -47,15 +54,15 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSignupClick }) => {
       <form className={style.form} onSubmit={handleSubmit}>
         <input
           type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={userEmail}
+          onChange={(e) => setUserEmail(e.target.value)}
           placeholder="Email"
           className={style.input}
         />
         <input
           type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={userPassword}
+          onChange={(e) => setUserPassword(e.target.value)}
           placeholder="Password"
           className={style.input}
         />
@@ -69,11 +76,10 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSignupClick }) => {
           <div className={style.lineinfo}>OR</div>
           <div className={style.line}></div>
         </div>
-
-        <button className={style.signupButton} onClick={onSignupClick}>
-          Sign up
-        </button>
       </form>
+      <button className={style.signupButton} onClick={onSignupClick}>
+        Sign up
+      </button>
     </div>
   );
 };
