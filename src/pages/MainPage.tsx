@@ -1,4 +1,7 @@
 import { motion, AnimatePresence, useForceUpdate } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import { USER_API } from 'contants';
+import axios from 'axios';
 
 import Sidebar from 'components/Sidebar';
 import Stopwatch from 'components/Stopwatch';
@@ -6,10 +9,40 @@ import style from 'styles/MainPage.module.css';
 
 import bgImage from '../img/bgimg.png';
 import Nsky from '../img/Nsky.png';
-import { useState } from 'react';
+
+interface UserInfo {
+  data: any;
+  userEmail: string;
+  userName: string;
+  userUid: number;
+}
 
 const MainPage: React.FC = () => {
   const [isSky, setIsSky] = useState<boolean>(false);
+
+  const [userEmail, setUserEmail] = useState<string>('');
+  const [userName, setUserName] = useState<string>('');
+  const [userUid, setUserUid] = useState<number>(0);
+
+  const setUserInfo = (email: string, name: string, id: number) => {
+    setUserEmail(email);
+    setUserName(name);
+    setUserUid(id);
+  };
+
+  const getUserInfo = async () => {
+    try {
+      const res = await axios.get<UserInfo>(USER_API + 'whoami', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+        },
+      });
+
+      setUserInfo(res.data.data.userEmail, res.data.data.userName, res.data.data.userUid);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleIsSky = () => {
     if (isSky) {
@@ -18,6 +51,10 @@ const MainPage: React.FC = () => {
       setIsSky(true);
     }
   };
+
+  useEffect(() => {
+    getUserInfo();
+  }, []);
 
   return (
     <div className={style.container}>
@@ -47,7 +84,8 @@ const MainPage: React.FC = () => {
           </motion.div>
         )}
       </AnimatePresence>
-      <Sidebar isSky={isSky} handleIsSky={handleIsSky} />
+
+      <Sidebar isSky={isSky} handleIsSky={handleIsSky} userEmail={userEmail} userName={userName} userUid={userUid} />
     </div>
   );
 };

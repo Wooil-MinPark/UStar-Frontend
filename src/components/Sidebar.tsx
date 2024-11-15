@@ -1,8 +1,9 @@
 import style from 'styles/Sidebar.module.css';
 import Menubtn from './Menubtn';
 import Userblock from './Userblock';
+
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 
 const USER_ICON = <i className="fa-regular fa-circle-user"></i>;
 const LOG_OUT_ICON = <i className="fa-solid fa-arrow-right-from-bracket"></i>;
@@ -12,12 +13,22 @@ const TENT_ICON = <i className="fa-solid fa-campground"></i>;
 interface Props {
   handleIsSky?: () => void;
   isSky: boolean;
+  userEmail: string | null;
+  userName: string | null;
+  userUid: number | null;
 }
 
-const Sidebar: React.FC<Props> = ({ handleIsSky, isSky }) => {
+const Sidebar: React.FC<Props> = ({ handleIsSky, isSky, userEmail, userName, userUid }) => {
   // case 1,2,3 식으로 구현해보기 _ bool값이 아닌 숫자 0,1,2론
   const [collapsed, setCollapsed] = useState(true);
   const [minimized, setMinimized] = useState(false);
+  const navigator = useNavigate();
+
+  const handleLogOut = () => {
+    localStorage.removeItem('authToken');
+    (document.cookie as string) = 'refresh_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    navigator('/');
+  };
 
   // 버튼 눌렀을때 사이드바 열고 접는 함수
   const toggleCollapse = () => {
@@ -53,11 +64,11 @@ const Sidebar: React.FC<Props> = ({ handleIsSky, isSky }) => {
         className={`${style.sidebar} ${collapsed ? style.collapsed : ''} ${minimized ? style.minimized : ''}`}
         // onMouseEnter={handleMouseEnter}
         // onMouseLeave={handleMouseEnter}
-        onMouseDown={handleMouseEnter}
+        // onMouseDown={handleMouseEnter}
         // onMouseUp={handleMouseLeave}
       >
         <div className={style.sidebarHeader}>
-          <Userblock name="홍길동" nickname="호부호형" profileIcon={USER_ICON} />
+          <Userblock name={userName} nickname={userEmail} profileIcon={USER_ICON} />
         </div>
 
         <div className={`${style.dividingline} ${minimized ? style.dividingline_mini : ''}`}></div>
@@ -74,9 +85,7 @@ const Sidebar: React.FC<Props> = ({ handleIsSky, isSky }) => {
           </div>
 
           <div className={style.logout}>
-            <Link to={'/UStar-Frontend'}>
-              <Menubtn icon={LOG_OUT_ICON} text="Log out" />
-            </Link>
+            <Menubtn icon={LOG_OUT_ICON} text="Log out" Clikfunction={handleLogOut} />
           </div>
         </div>
       </div>

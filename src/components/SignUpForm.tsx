@@ -1,10 +1,11 @@
 import axios from 'axios';
+import { USER_API } from 'contants';
 import { useEffect, useState } from 'react';
 import style from 'styles/SignupForm.module.css';
 
 // 응답 받을때 ok가 다 true (data가 null이든 있든) _ false는 예상치 못한 에러
 
-const API = 'http://localhost:8080/api/user/signup';
+// const API = 'http://localhost:8080/api/user/signup';
 // 172.30.1.29 우일빌라에서 쓰는 주소
 //112.172.161.117 외부에서 쓰는 주소
 interface ApiResponse {
@@ -55,7 +56,7 @@ const SignUpForm: React.FC<SignupProps> = ({ onBackToLoginClick, onSuccess }) =>
 
     try {
       const res = await axios.post<ApiResponse>(
-        API,
+        USER_API + 'signup',
         {
           userName: userName,
           userEmail: userEmail,
@@ -93,7 +94,7 @@ const SignUpForm: React.FC<SignupProps> = ({ onBackToLoginClick, onSuccess }) =>
 
     try {
       console.log('try문 시작');
-      const res = await axios.post<ApiResponse>(API + '/userEmailDup', { userEmail: userEmail });
+      const res = await axios.post<ApiResponse>(USER_API + 'signup/userEmailDup', { userEmail: userEmail });
 
       if (res.data.data) {
         // 이 에러를 consolo로 말고 다르게 표현하는걸 생각해보자
@@ -117,7 +118,7 @@ const SignUpForm: React.FC<SignupProps> = ({ onBackToLoginClick, onSuccess }) =>
     }
 
     try {
-      const res = await axios.post<ApiResponse>(API + '/userNameDup', { userName: userName });
+      const res = await axios.post<ApiResponse>(USER_API + 'signup/userNameDup', { userName: userName });
 
       if (res.data.data) {
         // 이 에러를 consolo로 말고 다르게 표현하는걸 생각해보자

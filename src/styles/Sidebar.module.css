@@ -5,8 +5,12 @@
 
   position: fixed;
   top: 0px;
+
   display: flex;
   align-items: center;
+
+  box-sizing: border-box;
+
   z-index: 10;
 }
 
@@ -34,25 +38,17 @@
 
 .sidebarHeader {
   white-space: nowrap;
-  margin-left: -6px;
+  margin-left: 6px;
 }
 
 .menu {
-  height: 85%;
+  height: 85vh;
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
+  flex-direction: column;
+
   white-space: nowrap;
 }
-
-/* .minimized::before {
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  background-color: #000;
-  margin-right: 0;
-  vertical-align: middle;
-} */
 
 .arrowbtn {
   font-size: 25px;
@@ -75,7 +71,7 @@
 }
 
 .dividingline {
-  width: 82%;
+  width: 85%;
   margin: 15px;
   height: 1px;
   background-color: rgba(128, 128, 128, 0.747);

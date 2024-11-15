@@ -36,6 +36,7 @@
 
 .form {
   display: flex;
+  position: relative;
   width: 85%;
   flex-direction: column;
   margin: 25px;
@@ -50,8 +51,7 @@
 }
 
 .form input:nth-child(2) {
-  margin-top: 20px;
-  margin-bottom: 80px;
+  margin-top: 30px;
 }
 
 .form button {
@@ -65,9 +65,28 @@
   cursor: pointer;
 }
 
+.emailAlert {
+  position: absolute;
+  width: 100%;
+  color: red;
+  top: 6.3vh;
+
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+
+.passwordAlert {
+  position: absolute;
+  width: 100%;
+  color: red;
+  top: 16.3vh;
+  margin-top: 5px;
+}
+
 .loginButton {
   background-color: #3e78c5;
   color: #fff;
+  margin-top: 80px;
   margin-bottom: 40px;
 }
 

@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import style from 'styles/LoginForm.module.css';
 import axios from 'axios';
+import { USER_API } from 'contants';
 
 interface LoginFormProps {
   onSignupClick: () => void;
@@ -15,27 +16,48 @@ interface ApiResponse {
   refreshToken: string;
   ok: boolean;
 }
-// 로그인 API 만들어지면 넣기
-const API = 'http://localhost:8080/api/user/login';
 
 const LoginForm: React.FC<LoginFormProps> = ({ onSignupClick }) => {
   const [userEmail, setUserEmail] = useState<string>('');
   const [userPassword, setUserPassword] = useState<string>('');
+  const [emailError, setEmailError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (!userEmail && !userPassword) {
+      setEmailError(true);
+      setPasswordError(true);
+      return;
+    }
+
+    if (!userEmail) {
+      setEmailError(true);
+      return;
+    } else setEmailError(false);
+
+    if (!userPassword) {
+      setPasswordError(true);
+      return;
+    } else setPasswordError(false);
+
     try {
-      const res = await axios.post<ApiResponse>(API, { userEmail, userPassword });
+      const res = await axios.post<ApiResponse>(
+        USER_API + 'login',
+        { userEmail, userPassword },
+        { withCredentials: true }
+      );
 
       if (res.data.errorCode === 'USER_003' || res.data.errorCode === 'USER_004') {
         alert('이메일 또는 페스워드를 확인해 주세요');
         return;
       }
-      // 나중에 토큰은 어떻게 받을지 고민해보기
+
       console.log(res);
-      localStorage.setItem('token', res.data.accessToken);
+      localStorage.setItem('authToken', res.data.data.accessToken);
+
       navigate('/main');
     } catch (error) {
       console.log(error);
@@ -58,19 +80,24 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSignupClick }) => {
           onChange={(e) => setUserEmail(e.target.value)}
           placeholder="Email"
           className={style.input}
+          style={emailError ? { borderColor: 'red' } : {}}
         />
+
         <input
           type="password"
           value={userPassword}
           onChange={(e) => setUserPassword(e.target.value)}
           placeholder="Password"
           className={style.input}
+          style={passwordError ? { borderColor: 'red' } : {}}
         />
-        {/* 로그인 버튼을 누루면 서버랑 이러쿵 저러쿵 해야함 */}
+
+        {emailError ? <div className={style.emailAlert}>이메일을 입력해주세요</div> : ''}
+        {passwordError ? <div className={style.passwordAlert}>비밀번호를 입력해주세요</div> : ''}
+
         <button type="submit" className={style.loginButton}>
           Login
         </button>
-
         <div className={style.dividingline}>
           <div className={style.line}></div>
           <div className={style.lineinfo}>OR</div>
