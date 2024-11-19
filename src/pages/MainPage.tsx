@@ -6,6 +6,7 @@ import axios from 'axios';
 import Sidebar from 'components/Sidebar';
 import Stopwatch from 'components/Stopwatch';
 import style from 'styles/MainPage.module.css';
+import NigthSky from 'components/NightSky';
 
 import bgImage from '../img/bgimg.png';
 import Nsky from '../img/Nsky.png';
@@ -68,7 +69,9 @@ const MainPage: React.FC = () => {
             exit={{ y: '-100%' }}
             transition={{ type: 'spring', bounce: 0.07 }}
           >
-            <img src={Nsky} alt="backgroundimg" className={style.bgimg} />
+            <div className={style.NskyBgimg}>
+              <NigthSky />
+            </div>
           </motion.div>
         ) : (
           <motion.div
@@ -79,8 +82,9 @@ const MainPage: React.FC = () => {
             exit={{ y: '100%' }}
             transition={{ type: 'spring', bounce: 0.07 }}
           >
-            <Stopwatch />
-            <img src={bgImage} alt="backgroundimg" className={style.bgimg} />
+            <div className={style.bgimg}>
+              <Stopwatch />
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

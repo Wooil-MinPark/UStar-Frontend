@@ -7,15 +7,34 @@
   color: black;
 
   text-align: center;
+
+  overflow: hidden;
 }
 
-.bgimg {
+/* .bgimg {
   position: absolute;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
   z-index: -1;
+} */
+
+.bgimg,
+.NskyBgimg {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100vh;
+  width: 100%;
+}
+
+.bgimg {
+  background-image: url('../img/bgimg.png');
+}
+
+.NskyBgimg {
+  background-image: url('../img/Nsky.png');
 }
 
 .btn {
