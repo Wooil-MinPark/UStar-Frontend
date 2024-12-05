@@ -1,0 +1,18 @@
+.container {
+  width: 20%;
+  height: 100vh;
+  top: 250px;
+  left: 800px;
+  position: fixed;
+}
+
+label {
+}
+
+input {
+  width: 300px;
+  height: 1vh;
+  margin: 10px;
+  padding: 10px;
+  outline: none;
+}

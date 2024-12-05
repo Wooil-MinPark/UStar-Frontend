@@ -1,0 +1,42 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  padding: 20px;
+
+  width: 150px;
+
+  background-color: white;
+  position: absolute;
+
+  border: 2px solid black;
+
+  top: 30px;
+  left: 1200px;
+}
+
+.colorinput {
+  width: 107%;
+  height: 40px;
+
+  padding: 0px;
+  margin-bottom: 10px;
+
+  /* border: 2px solid gray; */
+  /* border-radius: 2em; */
+}
+
+.titleinput {
+  /* padding: 10px; */
+  margin-bottom: 10px;
+  width: 100%;
+  font-size: 30px;
+}
+
+.createBtn {
+  width: 108%;
+  font-size: 17px;
+  font-weight: bolder;
+}

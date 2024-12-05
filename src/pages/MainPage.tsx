@@ -1,15 +1,12 @@
-import { motion, AnimatePresence, useForceUpdate } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { USER_API } from 'contants';
-import axios from 'axios';
+import axiosInstance from 'axiosInstance';
+
+import style from 'styles/MainPage.module.css';
 
 import Sidebar from 'components/Sidebar';
-import Stopwatch from 'components/Stopwatch';
-import style from 'styles/MainPage.module.css';
 import NigthSky from 'components/NightSky';
-
-import bgImage from '../img/bgimg.png';
-import Nsky from '../img/Nsky.png';
+import TaskForm from 'components/TaskForm';
 
 interface UserInfo {
   data: any;
@@ -33,7 +30,7 @@ const MainPage: React.FC = () => {
 
   const getUserInfo = async () => {
     try {
-      const res = await axios.get<UserInfo>(USER_API + 'whoami', {
+      const res = await axiosInstance.get<UserInfo>('user/whoami', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('authToken')}`,
         },
@@ -83,7 +80,7 @@ const MainPage: React.FC = () => {
             transition={{ type: 'spring', bounce: 0.07 }}
           >
             <div className={style.bgimg}>
-              <Stopwatch />
+              <TaskForm />
             </div>
           </motion.div>
         )}

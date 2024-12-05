@@ -1,0 +1,14 @@
+.container {
+  flex: 1;
+  /* position: absolute; */
+}
+
+.btn {
+  padding: 10px;
+
+  border: none;
+  border-radius: 2em;
+
+  cursor: pointer;
+  /* background-color:aqua */
+}

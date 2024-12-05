@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import style from 'styles/LoginForm.module.css';
-import axios from 'axios';
-import { USER_API } from 'contants';
+
+import axiosInstance from 'axiosInstance';
 
 interface LoginFormProps {
   onSignupClick: () => void;
@@ -44,8 +44,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSignupClick }) => {
     } else setPasswordError(false);
 
     try {
-      const res = await axios.post<ApiResponse>(
-        USER_API + 'login',
+      const res = await axiosInstance.post<ApiResponse>(
+        'user/login',
         { userEmail, userPassword },
         { withCredentials: true }
       );
@@ -63,7 +63,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSignupClick }) => {
       console.log(error);
     }
 
-    console.log(userEmail, userPassword);
+    console.log(userEmail, userPassword, localStorage.getItem('authToken'));
   };
 
   return (

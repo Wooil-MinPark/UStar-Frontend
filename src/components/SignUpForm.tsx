@@ -1,5 +1,4 @@
-import axios from 'axios';
-import { USER_API } from 'contants';
+import axiosInstance from 'axiosInstance';
 import { useEffect, useState } from 'react';
 import style from 'styles/SignupForm.module.css';
 
@@ -55,8 +54,8 @@ const SignUpForm: React.FC<SignupProps> = ({ onBackToLoginClick, onSuccess }) =>
     }
 
     try {
-      const res = await axios.post<ApiResponse>(
-        USER_API + 'signup',
+      const res = await axiosInstance.post<ApiResponse>(
+        'user/signup',
         {
           userName: userName,
           userEmail: userEmail,
@@ -64,9 +63,6 @@ const SignUpForm: React.FC<SignupProps> = ({ onBackToLoginClick, onSuccess }) =>
         },
         {
           withCredentials: true,
-          headers: {
-            'Content-Type': 'application/json',
-          },
         }
       );
 
@@ -94,7 +90,7 @@ const SignUpForm: React.FC<SignupProps> = ({ onBackToLoginClick, onSuccess }) =>
 
     try {
       console.log('try문 시작');
-      const res = await axios.post<ApiResponse>(USER_API + 'signup/userEmailDup', { userEmail: userEmail });
+      const res = await axiosInstance.post<ApiResponse>('user/signup/userEmailDup', { userEmail: userEmail });
 
       if (res.data.data) {
         // 이 에러를 consolo로 말고 다르게 표현하는걸 생각해보자
@@ -118,7 +114,7 @@ const SignUpForm: React.FC<SignupProps> = ({ onBackToLoginClick, onSuccess }) =>
     }
 
     try {
-      const res = await axios.post<ApiResponse>(USER_API + 'signup/userNameDup', { userName: userName });
+      const res = await axiosInstance.post<ApiResponse>('user/signup/userNameDup', { userName: userName });
 
       if (res.data.data) {
         // 이 에러를 consolo로 말고 다르게 표현하는걸 생각해보자

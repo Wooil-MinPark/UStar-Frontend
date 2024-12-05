@@ -1,0 +1,85 @@
+.container {
+  width: 100%;
+  height: 35vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+}
+
+.bar {
+  display: flex;
+  position: absolute;
+  gap: 10px;
+  max-width: 700px; /* 초기 최대 크기 */
+
+  /* cosntainer 기준 */
+  top: 210px;
+  left: 840px;
+
+  /* top: 860px;
+  left: 935px; */
+
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 2em;
+
+  height: 50px;
+  transition: max-width 0.8s ease-in-out;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+}
+
+.circle {
+  max-width: 55px;
+  white-space: nowrap;
+  transition: max-width 0.8s ease-out;
+}
+
+.item {
+  padding: 6px;
+
+  display: flex;
+
+  align-items: center;
+}
+
+.switch {
+  cursor: pointer;
+  font-size: 20px;
+  margin: 10px;
+
+  transition: transform 0.8s ease-in-out 0.08s;
+}
+
+.rotateR {
+  transform: rotate(215deg);
+}
+
+.rotateL {
+  transform: rotate(-215deg);
+}
+
+.addBtn {
+  cursor: pointer;
+
+  font-size: 20px;
+  margin: 10px;
+}
+
+.cartegoryForm {
+  opacity: 0;
+
+  transition: all 0.4s ease-in-out;
+}
+.show {
+  opacity: 1;
+}
+.hide {
+  opacity: 0;
+  /* transform: translateY(-20px); */
+}

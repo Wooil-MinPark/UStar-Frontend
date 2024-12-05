@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 import style from 'styles/Stopwatch.module.css';
+import { formatTime } from 'utils';
 
 const PAUSE_ICON = <i className="fa-solid fa-pause"></i>;
 const PLAY_ICON = <i className="fa-solid fa-play"></i>;
@@ -13,7 +14,11 @@ interface StopwatchState {
   intervalId: number | null;
 }
 
-const Stopwatch = () => {
+interface StopwatchProps {
+  onTimeUpdate: (time: number) => void;
+}
+
+const Stopwatch: React.FC<StopwatchProps> = ({ onTimeUpdate }) => {
   const [state, setState] = useState<StopwatchState>({
     elapsedTime: 0,
     isRunning: false,
@@ -26,6 +31,7 @@ const Stopwatch = () => {
       isRunning: false,
       intervalId: null,
     });
+    onTimeUpdate(0);
   };
 
   const handleButtonClick = () => {
@@ -40,10 +46,14 @@ const Stopwatch = () => {
       }));
     } else {
       const id = window.setInterval(() => {
-        setState((prevState) => ({
-          ...prevState,
-          elapsedTime: prevState.elapsedTime + 1,
-        }));
+        setState((prevState) => {
+          const newElapsedTime = prevState.elapsedTime + 1;
+          onTimeUpdate(newElapsedTime);
+          return {
+            ...prevState,
+            elapsedTime: newElapsedTime,
+          };
+        });
       }, 1000);
 
       setState((prevState) => ({
@@ -54,15 +64,15 @@ const Stopwatch = () => {
     }
   };
 
-  const formatTime = (time: number): string => {
-    const hours = Math.floor(time / 3600);
-    const minutes = Math.floor((time % 3600) / 60);
-    const seconds = time % 60;
+  //  const formatTime = (time: number): string => {
+  //     const hours = Math.floor(time / 3600);
+  //     const minutes = Math.floor((time % 3600) / 60);
+  //     const seconds = time % 60;
 
-    const formatNumber = (num: number) => num.toString().padStart(2, '0');
+  //     const formatNumber = (num: number) => num.toString().padStart(2, '0');
 
-    return `${formatNumber(hours)} : ${formatNumber(minutes)} : ${formatNumber(seconds)} `;
-  };
+  //     return `${formatNumber(hours)} : ${formatNumber(minutes)} : ${formatNumber(seconds)} `;
+  //   };
 
   useEffect(() => {
     return () => {
