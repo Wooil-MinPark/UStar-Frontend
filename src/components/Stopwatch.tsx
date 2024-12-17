@@ -3,10 +3,6 @@ import { useState, useEffect } from 'react';
 import style from 'styles/Stopwatch.module.css';
 import { formatTime } from 'utils';
 
-const PAUSE_ICON = <i className="fa-solid fa-pause"></i>;
-const PLAY_ICON = <i className="fa-solid fa-play"></i>;
-const STOP_ICON = <i className="fa-solid fa-stop"></i>;
-
 interface StopwatchState {
   // 시간 값을 int 또는 Date 객체로 사용하기는 걸 생각 해보자~
   elapsedTime: number;
@@ -26,6 +22,15 @@ const Stopwatch: React.FC<StopwatchProps> = ({ onTimeUpdate }) => {
   });
 
   const handleResetButton = () => {
+    if (state.elapsedTime === 0) {
+      return;
+    }
+    const confirm = window.confirm('할 일을 제출 하시겠습니까?');
+
+    if (!confirm) {
+      return;
+    }
+
     setState({
       elapsedTime: 0,
       isRunning: false,
@@ -87,16 +92,16 @@ const Stopwatch: React.FC<StopwatchProps> = ({ onTimeUpdate }) => {
       <div className={style.timer}>{formatTime(state.elapsedTime)}</div>
 
       <div className={style.btncontainer}>
-        <button className={style.btn} onClick={handleButtonClick}>
-          {state.isRunning ? PAUSE_ICON : PLAY_ICON}
-        </button>
+        <div className={style.btn} onClick={handleButtonClick}>
+          {state.isRunning ? <i className="fa-solid fa-pause"></i> : <i className="fa-solid fa-play"></i>}
+        </div>
 
         {state.isRunning ? (
           ''
         ) : (
-          <button className={style.btn} onClick={handleResetButton}>
-            {STOP_ICON}
-          </button>
+          <div className={style.btn} onClick={handleResetButton}>
+            <i className="fa-solid fa-stop"></i>
+          </div>
         )}
       </div>
 

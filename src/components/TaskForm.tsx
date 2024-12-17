@@ -30,7 +30,8 @@ const TaskForm: React.FC = () => {
   const kstDate = new Date(now.getTime() + 9 * 60 * 60 * 1000);
 
   //시간이 필요하면 split('T')[0] 제거 후 .replace('Z', '+09:00')
-  const todaysDate = kstDate.toISOString().split('T')[0];
+  //.split('T')[0];
+  const todaysDate = kstDate.toISOString();
 
   // 깃 커밋 하는 것처럼 서버에 데이터 보낼때 추가 설명 적는 기능
   const handleSubmit = async (e: React.FormEvent) => {
