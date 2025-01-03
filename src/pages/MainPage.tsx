@@ -30,11 +30,7 @@ const MainPage: React.FC = () => {
 
   const getUserInfo = async () => {
     try {
-      const res = await axiosInstance.get<UserInfo>('user/whoami', {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('authToken')}`,
-        },
-      });
+      const res = await axiosInstance.get<UserInfo>('user/whoami');
 
       setUserInfo(res.data.data.userEmail, res.data.data.userName, res.data.data.userUid);
     } catch (error) {

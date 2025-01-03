@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import style from '../styles/CategorySelector.module.css';
 import CategoryBtn from './CategoryBtn';
-import { createCategory, deleteCategory, getCategories } from 'api';
+import { createCategory, deleteCategory, getCategories, refreshAccessToken } from 'api';
 import CreateCartegoryForm from './CreateCartegoryForm';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -66,7 +66,7 @@ const CategorySelector = () => {
     if (categoriesData && Array.isArray(categoriesData)) {
       setCartegories([...categoriesData]);
     } else {
-      console.error('Invalid categories data', categoriesData);
+      console.log('Invalid categories data', categoriesData);
       setCartegories([]);
     }
   };
@@ -106,10 +106,6 @@ const CategorySelector = () => {
   useEffect(() => {
     fetchCategories();
   }, []);
-
-  useEffect(() => {
-    console.log(cartegories.length);
-  }, [cartegories]);
 
   return (
     <div className={style.container}>

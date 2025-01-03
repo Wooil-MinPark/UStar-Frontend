@@ -55,7 +55,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSignupClick }) => {
         return;
       }
 
-      console.log(res);
       localStorage.setItem('authToken', res.data.data.accessToken);
 
       navigate('/main');

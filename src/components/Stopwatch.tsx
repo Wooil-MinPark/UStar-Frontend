@@ -14,6 +14,8 @@ interface StopwatchProps {
   onTimeUpdate: (time: number) => void;
 }
 
+// 할 일을 0초부다 다시 하고 싶을때
+
 const Stopwatch: React.FC<StopwatchProps> = ({ onTimeUpdate }) => {
   const [state, setState] = useState<StopwatchState>({
     elapsedTime: 0,
@@ -25,8 +27,8 @@ const Stopwatch: React.FC<StopwatchProps> = ({ onTimeUpdate }) => {
     if (state.elapsedTime === 0) {
       return;
     }
-    const confirm = window.confirm('할 일을 제출 하시겠습니까?');
 
+    const confirm = window.confirm('할 일을 제출 하시겠습니까?');
     if (!confirm) {
       return;
     }
